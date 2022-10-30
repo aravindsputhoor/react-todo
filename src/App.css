@@ -87,3 +87,6 @@ ul{
   box-shadow: 3px 6px #ababab;
   border-radius: 6px;
 }
+.end{
+  text-align: end !important;
+}

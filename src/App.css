@@ -3,16 +3,20 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  background: rgb(2,0,36);
 }
 
 .header {
   text-align: center;
   width: 100%;
+  color: white;
 }
 .center {
   text-align: center;
 }
-
+.white {
+  color: white;
+}
 .pseudo-search {
   display: inline;
   border: 2px solid #ccc;
@@ -76,4 +80,10 @@ select {
   height: 25px;
   line-height: 25px;
   font-size: 0.9rem;
+}
+
+ul{
+  border: 1px solid;
+  box-shadow: 3px 6px #ababab;
+  border-radius: 6px;
 }

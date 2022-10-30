@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import List from './components/List';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="header">
+      <div className="p-4">
+        <h3>Todo planner</h3>
+        <div className="pseudo-search">
+          <input className="mt-2" type="text" placeholder="Enter todo here.." />
+          <button className="fa fa-plus" type="button"></button>
+        </div>
+      </div>
+    </div>
+
+    <div className="container mt-2">
+      <div className="row">
+        <List header={'todo'} />
+        <List header={'completed'} />
+        <List header={'removed'} />
+      </div>
+    </div>
     </div>
   );
 }

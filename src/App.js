@@ -9,13 +9,15 @@ function App() {
   const [todo, setTodo] = useState('');
   const addTodo = () => {
     let bool = false;
-    console.log('sx');
     todos.map((value, key)=>{
       if(value.todoText == todo) {
         bool = true;
       } 
     })
-    if(bool){
+    if(todo.trim() == '') {
+      toast.warn("Enter a valid text!");
+      return [...todos]
+    } else if(bool){
       toast.warn("Todo already exists!");
       return [...todos]
     } else {
@@ -38,9 +40,9 @@ function App() {
 
     <div className="container mt-2">
       <div className="row">
-        <List status={'todo'} data={todos} function= {setTodos}/>
-        <List status={'completed'} data={todos} function= {setTodos}/>
-        <List status={'removed'} data={todos} function= {setTodos}/>
+        <List status={'todo'} data={todos} function= {setTodos} />
+        <List status={'completed'} data={todos} function= {setTodos} />
+        <List status={'removed'} data={todos} function= {setTodos} />
       </div>
     </div>
     </div>

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
+import {AppContext} from '../AppContext';
 
 const List = (props) => {
-  let todos = props.data;
-  let listData = props.data.filter((value)=>{
+  const {todos, setTodos} = useContext(AppContext)
+
+
+
+  let list = props.data.filter((value)=>{
     return value.status === props.status;
-  })
+  });
+  const [listData, setListData] = useState(list);
+  console.log(listData);
 
   const completed = (todo) => {
     todos.filter((value) => {
@@ -40,8 +46,8 @@ const List = (props) => {
                     <a>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(value.time)}</a>
                   </div>
                   <div className="col-sm-4 end">
-                    <button className="btn btn-success btn-circle btn-circle-sm m-1" onClick={() => { props.function(completed(value)); }} ><i className="fa fa-check"></i></button>
-                    <button className="btn btn-danger btn-circle btn-circle-sm m-1" onClick={() => { props.function(remove(value)); }} ><i className="fa fa-trash"></i></button>
+                    <button className="btn btn-success btn-circle btn-circle-sm m-1" onClick={() => { setTodos(completed(value)); }} ><i className="fa fa-check"></i></button>
+                    <button className="btn btn-danger btn-circle btn-circle-sm m-1" onClick={() => { setTodos(remove(value)); }} ><i className="fa fa-trash"></i></button>
                   </div>
                 </div>
               </li> : 

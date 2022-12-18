@@ -1,12 +1,14 @@
 import './App.css';
-import List from './components/List';
 import {useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [completedTodos, setcompletedTodos] = useState([]);
+  const [removedTodos, setRemovedTodos] = useState([]);
   const [todo, setTodo] = useState('');
+
   const addTodo = () => {
     let bool = false;
     todos.map((value, key)=>{
@@ -25,6 +27,24 @@ function App() {
     }
   }
 
+  const completed = (value) => {
+    let todosData = todos.filter((data) => {
+      return data != value;
+    });
+    setTodos(todosData);
+    let completedData = [...completedTodos, value];
+    setcompletedTodos(completedData);
+  }
+
+  const remove = (value)=> {
+    let todosData = todos.filter((data) => {
+      return data != value;
+    });
+    setTodos(todosData);
+    let removeddData = [...removedTodos, value];
+    setRemovedTodos(removeddData);
+  }
+
   return (
     <div>
       <ToastContainer />
@@ -40,9 +60,56 @@ function App() {
 
     <div className="container mt-2">
       <div className="row">
-        <List status={'todo'} data={todos} function= {setTodos} />
-        <List status={'completed'} data={todos} function= {setTodos} />
-        <List status={'removed'} data={todos} function= {setTodos} />
+        
+        <div className="col-sm-4">
+          <ul className="list-group mt-4">
+            <li className="list-group-item blue-head"><i className="fa fa-cog" aria-hidden="true"></i> Todo's</li>
+            {
+              (todos.length === 0) ? <li className="list-group-item center"><p><b>No Todo's</b></p></li>  : todos.map((value, key) => {
+               return <li className="list-group-item" key={key}>
+                  <div className="row d-flex">
+                    <div className="col-sm-8">
+                      <p><b>{value.todoText}</b></p>
+                      <a>{new Intl.DateTimeFormat('en-US', {year: 'numeric', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(value.time)}</a>
+                    </div>
+                    <div className="col-sm-4 end">
+                      <button className="btn btn-success btn-circle btn-circle-sm m-1" onClick={() => { completed(value) }} ><i className="fa fa-check"></i></button>
+                      <button className="btn btn-danger btn-circle btn-circle-sm m-1" onClick={() => { remove(value) }} ><i className="fa fa-trash"></i></button>
+                    </div>
+                  </div>
+                </li>
+              })
+            }
+          </ul>
+        </div>
+
+        <div className="col-sm-4">
+          <ul className="list-group mt-4">
+            <li className="list-group-item green-head"><i className="fa fa-cog" aria-hidden="true"></i> Completed</li>
+            {
+              (completedTodos.length === 0) ? <li className="list-group-item center"><p><b>No Todo's</b></p></li>  : completedTodos.map((value, key) => {
+                return <li className="list-group-item" key={key}>
+                  <p><b>{value.todoText}</b></p>
+                  <a>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(value.time)}</a>
+                </li>
+              })
+            }
+          </ul>
+        </div>
+
+        <div className="col-sm-4">
+          <ul className="list-group mt-4">
+            <li className="list-group-item red-head"><i className="fa fa-cog" aria-hidden="true"></i> Removed</li>
+            {
+              (removedTodos.length === 0) ? <li className="list-group-item center"><p><b>No Todo's</b></p></li>  : removedTodos.map((value, key) => {
+                return <li className="list-group-item" key={key}>
+                  <p><b>{value.todoText}</b></p>
+                  <a>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(value.time)}</a>
+                </li>
+              })
+            }
+          </ul>
+        </div>
       </div>
     </div>
     </div>
